@@ -45,7 +45,7 @@
     ]);
 
     onMount(async () => {
-        data = await d3.csv('/energy.csv');
+        data = await d3.csv('energy.csv');
         data.forEach(d => {
             d.year = +d.year;
             d.population = +d.population;
