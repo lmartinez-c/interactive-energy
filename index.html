@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/2.NDNZ0nRu.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.UloGWCDq.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.UqqwFsOi.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.zMJaRgub.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.BchWyNGt.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.GAlJ5QcJ.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.G5HzLJi1.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.PDjDtQdj.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">  <div class="container svelte-6t5w4c"><div id="controls" class="svelte-6t5w4c"><div class="control-group svelte-6t5w4c"><div class="slider-group svelte-6t5w4c"><label for="yearRangeMin" class="slider-label svelte-6t5w4c">Year Range: 2000 - 2023</label> <div class="slider-container svelte-6t5w4c"><input type="range" id="yearRangeMin" name="yearRangeMin" min="2000" max="2023" class="svelte-6t5w4c" value="2000"> <input type="range" id="yearRangeMax" name="yearRangeMax" min="2000" max="2023" class="svelte-6t5w4c" value="2023"></div></div> <div class="slider-group svelte-6t5w4c"><label for="populationMin" class="slider-label svelte-6t5w4c">Minimum Population: 0</label> <input type="range" id="populationMin" name="populationMin" min="0" max="1000000000" step="1000000" class="svelte-6t5w4c" value="0"></div></div> <div class="control-group svelte-6t5w4c"><div class="select-group svelte-6t5w4c"><label for="energyCategory" class="select-label svelte-6t5w4c" data-svelte-h="svelte-169eyfe">Energy Category:</label> <select id="energyCategory" name="energyCategory" class="svelte-6t5w4c"><option value="biofuel" data-svelte-h="svelte-13np6r2">Biofuel</option><option value="coal" data-svelte-h="svelte-17e45hq">Coal</option><option value="electricity" data-svelte-h="svelte-15cl7e4">Electricity</option><option value="fossil_fuel" data-svelte-h="svelte-1ltgafn">Fossil Fuel</option><option value="gas" data-svelte-h="svelte-3en41c">Gas</option><option value="hydro" data-svelte-h="svelte-goey5i">Hydro</option><option value="low_carbon" data-svelte-h="svelte-1rnqjk5">Low Carbon</option><option value="nuclear" data-svelte-h="svelte-1jc1n12">Nuclear</option><option value="oil" data-svelte-h="svelte-1ksxsqa">Oil</option><option value="other_renewable" data-svelte-h="svelte-1h7foq3">Other Renewable</option><option value="renewable" data-svelte-h="svelte-6ppz4">Renewable</option><option value="solar" data-svelte-h="svelte-118ws3o">Solar</option><option value="wind" data-svelte-h="svelte-16dhxdu">Wind</option></select></div> <div class="select-group svelte-6t5w4c"><label for="dataType" class="select-label svelte-6t5w4c" data-svelte-h="svelte-v50lp2">Data Type:</label> <select id="dataType" name="dataType" class="svelte-6t5w4c"><option value="consumption" data-svelte-h="svelte-1vam63k">Consumption</option><option value="production" data-svelte-h="svelte-1lowwqu">Production</option></select></div></div></div> <div id="visualization" class="svelte-6t5w4c"><svg width="1200" height="800"></svg></div></div> 
+			
+			<script>
+				{
+					__sveltekit_pb3x2z = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.UloGWCDq.js"),
+						import("./_app/immutable/entry/app.BchWyNGt.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
