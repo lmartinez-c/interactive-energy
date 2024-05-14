@@ -74,12 +74,6 @@
         const centerY = innerHeight / 2;
         const boundaryRadius = Math.min(innerWidth, innerHeight) / 2 - 50;
 
-        const colorScale = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d[`${selectedCategory}_${dataType}`])])
-            .range(["#8000ff", "#7fff00"]); 
-
-        const radiusScale = d3.scaleSqrt().range([10, boundaryRadius / 3]);
-
         const categoryKey = `${selectedCategory}_${dataType}`;
         
         const aggregatedData = d3.rollups(
@@ -94,7 +88,18 @@
 
         const top20Data = aggregatedData.sort((a, b) => b.value - a.value).slice(0, 20);
 
-        radiusScale.domain([0, d3.max(top20Data, d => d.value)]);
+        if (top20Data.every(d => d.value === 0)) {
+            svg.selectAll('*').remove();
+            return; 
+        }
+
+        const colorScale = d3.scaleLinear()
+            .domain([d3.min(top20Data, d => d.value), d3.max(top20Data, d => d.value)])
+            .range(["#8000ff", "#7fff00"]); 
+
+        const radiusScale = d3.scaleSqrt()
+            .domain([0, d3.max(top20Data, d => d.value)])
+            .range([10, boundaryRadius / 3]);
 
         svg.selectAll('*').remove();
 
@@ -227,7 +232,7 @@
     }
 
     label {
-        color: #000; 
+        color: #000;
     }
 
     .slider-label {
