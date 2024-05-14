@@ -92,11 +92,6 @@
         const centerY = innerHeight / 2;
         const boundaryRadius = Math.min(innerWidth, innerHeight) / 2 - 50;
 
-<<<<<<< HEAD
-=======
-        const categoryKey = `${selectedCategory}_${dataType}`;
-        
->>>>>>> f3cc88df9181999ba012c9a768b6b9008a247c6d
         const aggregatedData = d3.rollups(
             data.filter(d => {
                 return countries.has(d.country) &&
@@ -111,7 +106,6 @@
 
         if (top20Data.every(d => d.value === 0)) {
             svg.selectAll('*').remove();
-<<<<<<< HEAD
             svg.append('text')
                 .attr('class', 'no-data-label')
                 .attr('transform', `translate(${innerWidth / 2 + margin.left}, ${innerHeight / 2 + margin.top})`)
@@ -120,8 +114,6 @@
                 .style('font-family', 'monospace')
                 .style('color', '#000')
                 .text("No data available");
-=======
->>>>>>> f3cc88df9181999ba012c9a768b6b9008a247c6d
             return; 
         }
 
