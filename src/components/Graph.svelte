@@ -44,13 +44,24 @@
         "Vietnam", "Yemen", "Zambia", "Zimbabwe"
     ]);
 
+    const categoryMapping = {
+        electricity: {
+            consumption: 'electricity_demand',
+            production: 'electricity_generation'
+        },
+        renewables: {
+            consumption: 'renewables_consumption',
+            production: 'renewables_production'
+        }
+    };
+
     onMount(async () => {
         data = await d3.csv('/energy.csv');
         data.forEach(d => {
             d.year = +d.year;
             d.population = +d.population;
             Object.keys(d).forEach(key => {
-                if (key.endsWith('_consumption') || key.endsWith('_production')) {
+                if (key.endsWith('_consumption') || key.endsWith('_production') || key === 'electricity_demand' || key === 'electricity_generation') {
                     d[key] = +d[key];
                 }
             });
@@ -63,6 +74,13 @@
     });
 
     function visualizeData() {
+        let categoryKey;
+        if (selectedCategory in categoryMapping) {
+            categoryKey = categoryMapping[selectedCategory][dataType];
+        } else {
+            categoryKey = `${selectedCategory}_${dataType}`;
+        }
+
         categoryLabel = `Top Countries by ${selectedCategory.replace('_', ' ')} ${dataType.charAt(0).toUpperCase() + dataType.slice(1)}`.toUpperCase();
         const svg = d3.select('#visualization svg');
         const width = 1200;
@@ -74,14 +92,6 @@
         const centerY = innerHeight / 2;
         const boundaryRadius = Math.min(innerWidth, innerHeight) / 2 - 50;
 
-        const colorScale = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d[`${selectedCategory}_${dataType}`])])
-            .range(["#8000ff", "#7fff00"]); 
-
-        const radiusScale = d3.scaleSqrt().range([10, boundaryRadius / 3]);
-
-        const categoryKey = `${selectedCategory}_${dataType}`;
-        
         const aggregatedData = d3.rollups(
             data.filter(d => {
                 return countries.has(d.country) &&
@@ -94,7 +104,26 @@
 
         const top20Data = aggregatedData.sort((a, b) => b.value - a.value).slice(0, 20);
 
-        radiusScale.domain([0, d3.max(top20Data, d => d.value)]);
+        if (top20Data.every(d => d.value === 0)) {
+            svg.selectAll('*').remove();
+            svg.append('text')
+                .attr('class', 'no-data-label')
+                .attr('transform', `translate(${innerWidth / 2 + margin.left}, ${innerHeight / 2 + margin.top})`)
+                .style('text-anchor', 'middle')
+                .style('font-size', '24px')
+                .style('font-family', 'monospace')
+                .style('color', '#000')
+                .text("No data available");
+            return; 
+        }
+
+        const colorScale = d3.scaleLinear()
+            .domain([d3.min(top20Data, d => d.value), d3.max(top20Data, d => d.value)])
+            .range(["#8000ff", "#7fff00"]); 
+
+        const radiusScale = d3.scaleSqrt()
+            .domain([0, d3.max(top20Data, d => d.value)])
+            .range([10, boundaryRadius / 3]);
 
         svg.selectAll('*').remove();
 
@@ -186,7 +215,6 @@
             .style('color', '#00e5ff')
             .text(categoryLabel);
 
-        
         g.append('text')
             .attr('class', 'description-label')
             .attr('transform', `translate(${innerWidth / 2}, ${0})`)
@@ -231,11 +259,18 @@
     }
 
     .slider-label {
-        color: #000; 
+        color: #000;
     }
 
     input[type="range"] {
         accent-color: #808080; 
+    }
+
+    .no-data-label {
+        font-size: 24px;
+        font-family: 'monospace';
+        color: #000; 
+        text-anchor: middle;
     }
 </style>
 

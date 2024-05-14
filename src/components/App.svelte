@@ -108,7 +108,7 @@
                   <option value="nuclear">Nuclear</option>
                   <option value="oil">Oil</option>
                   <option value="other_renewable">Other Renewable</option>
-                  <option value="renewable">Renewable</option>
+                  <option value="renewables">Renewables</option>
                   <option value="solar">Solar</option>
                   <option value="wind">Wind</option>
               </select>
